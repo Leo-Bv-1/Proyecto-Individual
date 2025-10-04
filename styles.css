@@ -1,0 +1,72 @@
+body{
+    background-color: grey;
+}
+#titulo{
+    text-align: center;
+    color: white;
+    background-color: red;
+}
+.boton{
+    background-color: greenyellow;
+    border-radius: 15px;
+    font-family: cursive;
+    color: black;
+    text-decoration: none;
+    padding: 12px;
+    margin: 15px;
+}
+.boton:hover {
+    color: red;
+    text-decoration: underline;
+}
+p{
+    font-size: 18px;
+}
+.imagenes {
+    display: block;
+    margin: 0 auto;
+}
+header {
+    background-color: rgb(30, 197, 161);
+    padding: 15px;
+}
+footer {
+    background-color: rgb(30, 197, 161);
+}
+.menu {
+    background-color: #1e3a5f;
+    padding: 15px;
+    border-radius: 10px;
+    width: 220px;
+}
+.menu a, .menu li {
+    color: #facc15; 
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    margin: 5px 0;
+}
+.menu a:hover {
+    color: white;
+    text-decoration: underline;
+}
+h2 {
+    background-color: red;
+    color: white;
+}
+table {
+    border-color: #1e3a5f;
+}
+#titulo {
+    background-color: #253c58;
+}
+.tipos_de_agentes th{
+    background-color: rgb(101, 108, 131);
+    color: white;
+}
+.agentes td{
+    background-color: rgb(33, 96, 168);
+}
+main{
+    color: white;
+}

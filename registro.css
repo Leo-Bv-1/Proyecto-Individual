@@ -1,0 +1,38 @@
+body{
+    background-color: grey;
+}
+h1 {
+    background-color: red;
+    color: white;
+    text-align: center;
+}
+.boton{
+    background-color: greenyellow;
+    border-radius: 15px;
+    font-family: cursive;
+    color: black;
+    text-decoration: none;
+    padding: 12px;
+    margin: 15px;
+}
+.boton:hover {
+    color: red;
+    text-decoration: underline;
+}
+main {
+    text-align: center;
+    font-size: 18px;
+}
+fieldset {
+    border: 2px solid #1e3a5f;
+    border-radius: 8px;
+}
+legend {
+    font-size: 25px;
+    font-weight: bold;
+    color: #1e3a5f;
+}
+form {
+    width: 500px;
+    margin: 0 auto;
+}
