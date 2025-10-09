@@ -1,7 +1,7 @@
 body{
     background-color: grey;
 }
-#titulo{
+#titulo_principal{
     text-align: center;
     color: white;
     background-color: red;
@@ -14,8 +14,10 @@ body{
     text-decoration: none;
     padding: 12px;
     margin: 15px;
+    transition: 0.3s;
 }
 .boton:hover {
+    opacity: 0.8;
     color: red;
     text-decoration: underline;
 }
@@ -69,4 +71,51 @@ table {
 }
 main{
     color: white;
+}
+main p::first-letter {
+    font-size: 25px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #1e3a5f;
+    margin-right: 2px;
+    line-height: 0.5;
+}
+main p::after {
+    content: ".";
+    color: #1e3a5f;
+    font-size: 25px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+#excepcion::after {
+    content: ":";
+    font-size: 25px;
+    color: #1e3a5f;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+main ul li{
+    font-size: 20px;
+    color: #1e3a5f;
+}
+main ol li{
+    font-size: 17px;
+    color: #1e3a5f
+}
+.agentes li{
+    color: white;
+    font-size: 16px;
+}
+::selection {
+    background: red;
+    color: white;
+}
+h1 + p{
+    font-family: cursive;
+}
+h1 + p::first-letter{
+    color: red;
+    font-size: 25px;
+}
+h1 + p::after{
+    content: ".";
+    color: red;
+    font-size: 25px;
 }
