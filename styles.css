@@ -27,6 +27,7 @@ p{
 .imagenes {
     display: block;
     margin: 0 auto;
+    border-radius: 10px;
 }
 header {
     background-color: rgb(30, 197, 161);
@@ -34,6 +35,12 @@ header {
 }
 footer {
     background-color: rgb(30, 197, 161);
+}
+.img_y_menu {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
 }
 .menu {
     background-color: #1e3a5f;
