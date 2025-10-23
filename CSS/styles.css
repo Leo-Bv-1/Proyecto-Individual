@@ -1,15 +1,8 @@
-body{
-    background-color: grey;
-}
-#titulo_principal{
-    text-align: center;
-    color: red;
-}
 .boton{
-    background-color: greenyellow;
+    background-color: #1e3a5f;
     border-radius: 15px;
     font-family: cursive;
-    color: black;
+    color: white;
     text-decoration: none;
     padding: 12px;
     margin: 15px;
@@ -28,20 +21,19 @@ p{
     margin: 0 auto;
     border-radius: 10px;
 }
-footer {
-    background-color: red;
-}
-.img_y_menu {
+main {
     display: flex;
     gap: 20px;
-    align-items: center;
     justify-content: center;
 }
 .menu {
     background-color: #1e3a5f;
     padding: 15px;
+    margin: 20px;
+    position: sticky;
     border-radius: 10px;
-    width: 220px;
+    width: 250px;
+    height: 300px;
 }
 .menu a, .menu li {
     color: #facc15; 
@@ -58,30 +50,18 @@ h2 {
     background-color: red;
     color: white;
 }
-table {
-    border-color: #1e3a5f;
-}
-#titulo {
-    background-color: #253c58;
-}
-.tipos_de_agentes th{
-    background-color: rgb(101, 108, 131);
+.Contenido{
     color: white;
+    width: 80%;
 }
-.agentes td{
-    background-color: rgb(33, 96, 168);
-}
-main{
-    color: white;
-}
-main p::first-letter {
+.Contenido p::first-letter {
     font-size: 25px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color: #1e3a5f;
     margin-right: 2px;
     line-height: 0.5;
 }
-main p::after {
+.Contenido p::after {
     content: ".";
     color: #1e3a5f;
     font-size: 25px;
@@ -93,21 +73,13 @@ main p::after {
     color: #1e3a5f;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
-main ul li{
+.Contenido ul li{
     font-size: 20px;
     color: #1e3a5f;
 }
-main ol li{
+.Contenido ol li{
     font-size: 17px;
     color: #1e3a5f
-}
-.agentes li{
-    color: white;
-    font-size: 16px;
-}
-::selection {
-    background: red;
-    color: white;
 }
 h1 + p{
     font-family: cursive;

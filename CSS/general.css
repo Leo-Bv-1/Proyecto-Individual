@@ -3,7 +3,14 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+body{
+    background-color: grey;
+}
+h1{
+    text-align: center;
+    color: red;
+    font-size: 50px;
+}
 header {
     background-color: red;
     color: white;
@@ -22,6 +29,17 @@ header a {
     font-weight: bold;
 }
 header a:hover {
-    background-color: rgb(246, 61, 61);
+  background-color: rgb(230, 70, 70);
   text-decoration: underline;
+  font-size: 1.1rem;
+}
+::selection {
+    background: red;
+    color: white;
+}
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 10px;
 }
