@@ -1,0 +1,27 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header {
+    background-color: red;
+    color: white;
+    padding: 18px 0;
+    position: sticky;
+    text-align: center;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+header a {
+    padding: 18px 20px;
+    transition: 0.2s;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+header a:hover {
+    background-color: rgb(246, 61, 61);
+  text-decoration: underline;
+}

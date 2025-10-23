@@ -3,8 +3,7 @@ body{
 }
 #titulo_principal{
     text-align: center;
-    color: white;
-    background-color: red;
+    color: red;
 }
 .boton{
     background-color: greenyellow;
@@ -29,12 +28,8 @@ p{
     margin: 0 auto;
     border-radius: 10px;
 }
-header {
-    background-color: rgb(30, 197, 161);
-    padding: 15px;
-}
 footer {
-    background-color: rgb(30, 197, 161);
+    background-color: red;
 }
 .img_y_menu {
     display: flex;
