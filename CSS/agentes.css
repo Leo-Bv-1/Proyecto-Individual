@@ -1,55 +1,142 @@
-h1 + p{
-    font-family: cursive;
+/* Global variables for Valorant-like theme */
+:root {
+    --val-red: #ff4655;
+    --val-black: #0f1923;
+    --val-white: #ece8e1;
+    --val-dark-blue: #1e3a5f;
+    --val-grey: #8b9bb4;
 }
-h1 + p::first-letter{
-    color: red;
-    font-size: 25px;
+
+body {
+    background-color: var(--val-black); /* Override general.css grey */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--val-white);
 }
-h1 + p::after{
-    content: ".";
-    color: red;
-    font-size: 25px;
-}
-main{
+
+.agentes-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
     display: flex;
     flex-direction: column;
-    color: white;
-    width: 80%;
     align-items: center;
-    padding: 20px;
 }
-main p::first-letter {
-    font-size: 25px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    color: #1e3a5f;
-    margin-right: 2px;
-    line-height: 0.5;
+
+.intro {
+    text-align: center;
+    margin-bottom: 40px;
 }
-main p::after {
-    content: ":";
-    color: #1e3a5f;
-    font-size: 25px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+.intro h1 {
+    font-size: 3rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    color: var(--val-white);
+    border-bottom: 4px solid var(--val-red);
+    display: inline-block;
+    padding-bottom: 10px;
 }
-.agentes li{
-    color: white;
-    font-size: 16px;
-}
-table {
-    border-color: #1e3a5f;
-}
-#titulo {
-    background-color: #253c58;
-}
-.tipos_de_agentes th{
-    background-color: rgb(101, 108, 131);
-    color: white;
-}
-.agentes td{
-    background-color: rgb(33, 96, 168);
-}
-img {
-    display: block;
+
+.intro-text {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    max-width: 800px;
     margin: 0 auto;
+    color: var(--val-grey);
+}
+
+/* Grid Layout for Roles */
+.roles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.role-card {
+    background-color: #1a2733;
+    border: 1px solid #334455;
+    border-radius: 8px;
+    padding: 25px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.role-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    border-color: var(--val-red);
+}
+
+.role-card h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: var(--val-red);
+    text-transform: uppercase;
+}
+
+.role-desc {
+    margin-bottom: 20px;
+    line-height: 1.5;
+    flex-grow: 1; /* Pushes the list down */
+}
+
+.role-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--val-grey);
+    padding-bottom: 5px;
+}
+
+.agent-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.agent-list li {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 5px 10px;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+}
+
+.agent-list li:hover {
+    background-color: var(--val-red);
+    color: white;
+}
+
+.featured-image {
+    width: 100%;
+    text-align: center;
+}
+
+.hero-img {
+    max-width: 100%;
+    height: auto;
     border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    border: 2px solid var(--val-red);
+}
+
+/* Specific styling overrides for role types if needed */
+.duelist h2 { color: #f2d65d; /* Example color, keeping red as main theme but maybe distinct? No, stick to consistent theme or use role icons color if known. Let's stick to red for now or subtle variations */ }
+.controller h2 { color: #b7b0ff; }
+.sentinel h2 { color: #52e3c2; }
+.initiator h2 { color: #60ff72; }
+
+@media (max-width: 768px) {
+    .intro h1 {
+        font-size: 2.2rem;
+    }
+    .roles-grid {
+        grid-template-columns: 1fr;
+    }
 }
