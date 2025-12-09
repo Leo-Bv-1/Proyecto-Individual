@@ -1,10 +1,6 @@
-/* Styles for Registration Page */
-
-/* Inherits from general.css */
 
 .registro-header {
-    background-color: #0f1923; /* Darker than standard red header for this page, or keep standard? Let's use standard red but override content alignment */
-    /* Actually general.css sets header bg to #111 and border red. Let's stick to that but layout content. */
+    background-color: #0f1923; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -121,7 +117,7 @@ input[type="number"]:focus {
 }
 
 .rating-input {
-    width: 80px !important; /* Override width: 100% */
+    width: 80px !important; /* Anula width: 100% */
     display: inline-block;
     margin-left: 10px;
 }
