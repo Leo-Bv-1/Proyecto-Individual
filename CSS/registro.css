@@ -1,38 +1,175 @@
-body{
-    background-color: grey;
+/* Styles for Registration Page */
+
+/* Inherits from general.css */
+
+.registro-header {
+    background-color: #0f1923; /* Darker than standard red header for this page, or keep standard? Let's use standard red but override content alignment */
+    /* Actually general.css sets header bg to #111 and border red. Let's stick to that but layout content. */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    height: auto;
 }
-h1 {
-    background-color: red;
-    color: white;
-    text-align: center;
+
+.registro-header h1 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    text-transform: uppercase;
 }
-.boton{
-    background-color: greenyellow;
-    border-radius: 15px;
-    font-family: cursive;
-    color: black;
+
+.boton-regresar {
+    background-color: transparent;
+    border: 1px solid var(--val-white);
+    color: var(--val-white);
+    padding: 8px 20px;
     text-decoration: none;
-    padding: 12px;
-    margin: 15px;
-}
-.boton:hover {
-    color: red;
-    text-decoration: underline;
-}
-main {
-    text-align: center;
-    font-size: 18px;
-}
-fieldset {
-    border: 2px solid #1e3a5f;
-    border-radius: 8px;
-}
-legend {
-    font-size: 25px;
+    border-radius: 4px;
+    transition: all 0.3s;
     font-weight: bold;
-    color: #1e3a5f;
+    text-transform: uppercase;
+    font-size: 0.9rem;
 }
-form {
-    width: 500px;
-    margin: 0 auto;
+
+.boton-regresar:hover {
+    background-color: var(--val-white);
+    color: var(--val-black);
+    text-decoration: none;
+}
+
+.registro-container {
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.registro-form {
+    width: 100%;
+    max-width: 600px;
+    background-color: #1a2733;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border-top: 4px solid var(--val-red);
+}
+
+fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+legend {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--val-red);
+    margin-bottom: 25px;
+    text-align: center;
+    width: 100%;
+    text-transform: uppercase;
+    border-bottom: 1px solid #334455;
+    padding-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--val-white);
+    font-weight: 500;
+}
+
+.group-label {
+    margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #0f1923;
+    border: 1px solid #334455;
+    border-radius: 4px;
+    color: white;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus {
+    border-color: var(--val-red);
+    outline: none;
+}
+
+.radio-options {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-weight: normal;
+}
+
+.rating-input {
+    width: 80px !important; /* Override width: 100% */
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-weight: normal;
+    color: var(--val-grey);
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.submit-btn {
+    background-color: var(--val-red);
+    color: white;
+}
+
+.submit-btn:hover {
+    background-color: #d93644;
+    transform: translateY(-2px);
+}
+
+.reset-btn {
+    background-color: transparent;
+    border: 1px solid var(--val-grey);
+    color: var(--val-grey);
+}
+
+.reset-btn:hover {
+    border-color: var(--val-white);
+    color: var(--val-white);
 }

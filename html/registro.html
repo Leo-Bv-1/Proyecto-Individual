@@ -1,51 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Suscripción - Valorant Fan Page</title>
+    <link rel="stylesheet" href="../CSS/general.css">
     <link rel="stylesheet" href="../CSS/registro.css">
 </head>
 <body>
-    <header>
-        <h1>Suscripción a pagina sobre Valorant:</h1>
-        <a href="index.html" class="boton">Regresar</a>
-        <br><br>
+    <header class="registro-header">
+        <h1>Suscripción a Valorant Fan Page</h1>
+        <a href="index.html" class="boton-regresar">Regresar al Inicio</a>
     </header>
-    <main>
-        <form action="#" method="post">
+    <main class="registro-container">
+        <form action="#" method="post" class="registro-form">
             <fieldset>
-                <legend>Información</legend>
-                <label for="nombre completo">Nombre Completo:</label>
-                <input type="text" id="nombre completo" name="Nombre Completo" placeholder="Escriba su nombre completo:" required>
-                <br><br>
-                <label for="correo">Correo:</label>
-                <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com" required>
-                <br><br>
-                <label>Género:</label>
-                <input type="radio" id="masc" name="Género" value="M">
-                <label for="masc">Masculino</label>
-                <input type="radio" id="fem" name="Género" value="F">
-                <label for="fem">Femenino</label>
-                <input type="radio" id="incognito" name="Género" value="I">
-                <label for="incognito">Prefiero no decirlo</label>
-                <br><br>
-                <label>
-                    Del 1 al 10 que tanto te gusta el Valorant:
-                    <input type="number" name="reseña" placeholder="1-10" min="1" max="10" required>
-                </label>
-                <br><br>
-                <label></label>
-                <br><br>
-                <label>
-                    <input type="checkbox" name="terminos">
-                    Acepto recibir correos sobre esta página
-                </label>
-                <br><br>
-                <button type="submit">Suscribirse</button>
-                <button type="reset">Resetear</button>
+                <legend>Información de Suscriptor</legend>
+
+                <div class="form-group">
+                    <label for="nombre completo">Nombre Completo:</label>
+                    <input type="text" id="nombre completo" name="Nombre Completo" placeholder="Escriba su nombre completo" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="correo">Correo Electrónico:</label>
+                    <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com" required>
+                </div>
+
+                <div class="form-group radio-group">
+                    <label class="group-label">Género:</label>
+                    <div class="radio-options">
+                        <label class="radio-label">
+                            <input type="radio" id="masc" name="Género" value="M"> Masculino
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" id="fem" name="Género" value="F"> Femenino
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" id="incognito" name="Género" value="I"> Prefiero no decirlo
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        Del 1 al 10, ¿qué tanto te gusta Valorant?
+                        <input type="number" name="reseña" placeholder="1-10" min="1" max="10" required class="rating-input">
+                    </label>
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="terminos">
+                        <span class="checkmark"></span>
+                        Acepto recibir correos y novedades sobre esta página
+                    </label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="submit-btn">Suscribirse</button>
+                    <button type="reset" class="reset-btn">Limpiar</button>
+                </div>
             </fieldset>
         </form>
     </main>
+    <footer>
+        <h4>Riot Games</h4>
+        <p>Para todos los fanáticos de Valorant.</p>
+        <p>&copy; 2025 Valorant Fan Page | No oficial de Riot Games</p>
+    </footer>
 </body>
 </html>
