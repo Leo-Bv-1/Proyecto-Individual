@@ -15,24 +15,63 @@ h1{
 header {
     background-color: red;
     color: white;
-    padding: 18px 0;
+    padding: 0; /* Removing padding to let flex container handle it */
     position: sticky;
-    text-align: center;
     top: 0;
     z-index: 1000;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    padding: 0 !important; /* Override default header a padding */
+    margin-right: auto; /* Pushes links to the right or center depending on preference, or use flex-grow */
+    background-color: transparent !important; /* No hover bg for logo */
+    text-decoration: none !important;
+}
+
+.nav-logo {
+    height: 50px;
+    width: auto;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.nav-logo:hover {
+    transform: scale(1.1) rotate(5deg);
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
+}
+
+.nav-links {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1; /* Center the links if we want, or remove this to keep them right or just normal flow */
+    margin-right: 50px; /* Balance the logo on the left */
+}
+
 header a {
-    padding: 18px 20px;
+    padding: 15px 20px;
     transition: 0.2s;
     color: white;
     text-decoration: none;
     font-weight: bold;
+    border-radius: 4px;
 }
-header a:hover {
-  background-color: rgb(230, 70, 70);
-  text-decoration: underline;
-  font-size: 1.1rem;
+
+header a:not(.logo-link):hover {
+  background-color: rgb(180, 40, 40); /* Darker red on hover */
+  text-decoration: none; /* Removed underline for cleaner look */
+  transform: translateY(-2px);
 }
 ::selection {
     background: red;
