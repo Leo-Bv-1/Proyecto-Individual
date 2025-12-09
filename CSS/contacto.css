@@ -1,19 +1,6 @@
 /* Contact Page Styles */
 
-/* Reuse variables if possible, but defining here for isolation */
-:root {
-    --val-red: #ff4655;
-    --val-black: #0f1923;
-    --val-white: #ece8e1;
-    --val-dark-blue: #1e3a5f;
-    --val-grey: #8b9bb4;
-}
-
-body {
-    background-color: var(--val-black);
-    color: var(--val-white);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+/* Global variables are in general.css */
 
 .contact-container {
     width: 90%;

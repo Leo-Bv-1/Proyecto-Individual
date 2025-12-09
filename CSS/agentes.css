@@ -1,17 +1,7 @@
-/* Global variables for Valorant-like theme */
-:root {
-    --val-red: #ff4655;
-    --val-black: #0f1923;
-    --val-white: #ece8e1;
-    --val-dark-blue: #1e3a5f;
-    --val-grey: #8b9bb4;
-}
+/* Global variables are now in general.css */
+/* :root definitions removed to avoid duplication */
 
-body {
-    background-color: var(--val-black); /* Override general.css grey */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: var(--val-white);
-}
+/* Body styling inherited from general.css, specific overrides here if needed */
 
 .agentes-container {
     width: 90%;

@@ -1,95 +1,136 @@
-.boton{
-    background-color: #1e3a5f;
-    border-radius: 15px;
-    font-family: cursive;
-    color: white;
-    text-decoration: none;
-    padding: 12px;
-    margin: 15px;
-    transition: 0.3s;
+
+.Contenido {
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
+    color: var(--val-white);
 }
-.boton:hover {
-    opacity: 0.8;
-    color: red;
-    text-decoration: underline;
+
+.Contenido h1 {
+    font-size: 4rem;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    letter-spacing: 4px;
+    border-bottom: none;
+    text-shadow: 2px 2px 0px var(--val-red);
 }
-p{
-    font-size: 18px;
+
+.Contenido p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--val-grey);
+    margin-bottom: 20px;
+    max-width: 800px;
 }
+
+.Contenido h2 {
+    color: var(--val-red);
+    font-size: 2rem;
+    text-transform: uppercase;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    border-left: 5px solid var(--val-white);
+    padding-left: 15px;
+}
+
+.Contenido ul {
+    list-style: none;
+    padding: 0;
+}
+
+.Contenido li {
+    font-size: 1.2rem;
+    color: var(--val-white);
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.Contenido li strong {
+    color: var(--val-red);
+}
+
 .imagenes {
     display: block;
-    margin: 0 auto;
-    border-radius: 10px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border: 1px solid #334455;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: transform 0.3s;
+    max-width: 100%;
 }
-main {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
+
+.imagenes:hover {
+    transform: scale(1.02);
+    border-color: var(--val-red);
 }
-.menu {
-    background-color: #1e3a5f;
-    padding: 15px;
-    margin: 20px;
-    position: sticky;
-    border-radius: 10px;
-    width: 250px;
-    height: 300px;
-}
-.menu a, .menu li {
-    color: #facc15; 
+
+.boton {
+    display: inline-block;
+    background-color: var(--val-red);
+    color: white;
+    padding: 12px 30px;
     text-decoration: none;
     font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 4px;
+    transition: background-color 0.3s, transform 0.2s;
+    margin: 10px 0;
+    border: none;
+    font-family: inherit; 
+}
+
+.boton:hover {
+    background-color: #d93644;
+    transform: translateY(-2px);
+    text-decoration: none;
+    color: white;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--val-red), transparent);
+    margin: 40px 0;
+}
+
+.menu {
+    background-color: #1a2733;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #334455;
+    margin: 40px auto;
+    width: 90%;
+    max-width: 1200px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: space-around;
+}
+
+.menu a {
+    color: var(--val-grey);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.menu > a {
+    font-weight: bold;
+    color: var(--val-white);
+    text-transform: uppercase;
     display: block;
-    margin: 5px 0;
+    margin-bottom: 10px;
 }
+
+.menu ul {
+    list-style: none;
+    padding-left: 10px;
+    border-left: 2px solid var(--val-red);
+}
+
+.menu ul li {
+    margin-bottom: 5px;
+}
+
 .menu a:hover {
-    color: white;
-    text-decoration: underline;
-}
-h2 {
-    background-color: red;
-    color: white;
-}
-.Contenido{
-    color: white;
-    width: 80%;
-}
-.Contenido p::first-letter {
-    font-size: 25px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    color: #1e3a5f;
-    margin-right: 2px;
-    line-height: 0.5;
-}
-.Contenido p::after {
-    content: ".";
-    color: #1e3a5f;
-    font-size: 25px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-#excepcion::after {
-    content: ":";
-    font-size: 25px;
-    color: #1e3a5f;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-.Contenido ul li{
-    font-size: 20px;
-    color: #1e3a5f;
-}
-.Contenido ol li{
-    font-size: 17px;
-    color: #1e3a5f
-}
-h1 + p{
-    font-family: cursive;
-}
-h1 + p::first-letter{
-    color: red;
-    font-size: 25px;
-}
-h1 + p::after{
-    content: ".";
-    color: red;
-    font-size: 25px;
+    color: var(--val-red);
 }

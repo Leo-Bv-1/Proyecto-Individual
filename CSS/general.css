@@ -1,25 +1,42 @@
+/* Global variables for Valorant-like theme */
+:root {
+    --val-red: #ff4655;
+    --val-black: #0f1923;
+    --val-white: #ece8e1;
+    --val-dark-blue: #1e3a5f;
+    --val-grey: #8b9bb4;
+    --val-light-grey: #d1d1d1;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   position: relative;
 }
-body{
-    background-color: grey;
+
+body {
+    background-color: var(--val-black);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--val-white);
 }
-h1{
+
+h1 {
     text-align: center;
-    color: red;
+    color: var(--val-white);
     font-size: 50px;
+    margin-bottom: 20px;
 }
+
 header {
-    background-color: red;
+    background-color: #111; /* Darker header */
+    border-bottom: 3px solid var(--val-red);
     color: white;
-    padding: 0; /* Removing padding to let flex container handle it */
+    padding: 0;
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .main-nav {
@@ -33,9 +50,9 @@ header {
 .logo-link {
     display: flex;
     align-items: center;
-    padding: 0 !important; /* Override default header a padding */
-    margin-right: auto; /* Pushes links to the right or center depending on preference, or use flex-grow */
-    background-color: transparent !important; /* No hover bg for logo */
+    padding: 0 !important;
+    margin-right: auto;
+    background-color: transparent !important;
     text-decoration: none !important;
 }
 
@@ -47,39 +64,53 @@ header {
 
 .nav-logo:hover {
     transform: scale(1.1) rotate(5deg);
-    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
+    filter: drop-shadow(0 0 5px rgba(255, 70, 85, 0.8));
 }
 
 .nav-links {
     display: flex;
-    gap: 10px;
+    gap: 15px;
     align-items: center;
     justify-content: center;
-    flex-grow: 1; /* Center the links if we want, or remove this to keep them right or just normal flow */
-    margin-right: 50px; /* Balance the logo on the left */
+    flex-grow: 1;
+    margin-right: 50px;
 }
 
 header a {
-    padding: 15px 20px;
-    transition: 0.2s;
-    color: white;
+    padding: 10px 15px;
+    transition: all 0.2s ease;
+    color: var(--val-white);
     text-decoration: none;
     font-weight: bold;
     border-radius: 4px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
 }
 
 header a:not(.logo-link):hover {
-  background-color: rgb(180, 40, 40); /* Darker red on hover */
-  text-decoration: none; /* Removed underline for cleaner look */
+  background-color: var(--val-red);
+  color: white;
+  text-decoration: none;
   transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 70, 85, 0.3);
 }
+
 ::selection {
-    background: red;
+    background: var(--val-red);
     color: white;
 }
+
 footer {
-    background-color: #333;
-    color: white;
+    background-color: #0b1219;
+    color: var(--val-grey);
     text-align: center;
-    padding: 20px 10px;
+    padding: 30px 10px;
+    border-top: 1px solid #333;
+    margin-top: 40px;
+}
+
+footer h4 {
+    color: var(--val-white);
+    margin-bottom: 10px;
 }
