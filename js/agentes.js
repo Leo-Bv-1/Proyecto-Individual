@@ -1,6 +1,4 @@
-// Agent data with abilities and descriptions
 const agentsData = {
-    // Duelists
     "Jett": {
         role: "Duelista",
         description: "Jett es una agente surcoreana ágil y evasiva. Su estilo de lucha se centra en tomar riesgos y flanquear a los enemigos con rapidez.",
@@ -82,7 +80,6 @@ const agentsData = {
         ]
     },
 
-    // Controllers
     "Brimstone": {
         role: "Controlador",
         description: "Brimstone, de Estados Unidos, asegura que su equipo siempre tenga ventaja con su arsenal orbital.",
@@ -144,7 +141,6 @@ const agentsData = {
         ]
     },
 
-    // Sentinels
     "Killjoy": {
         role: "Centinela",
         description: "La genio alemana Killjoy asegura el campo de batalla con su arsenal de inventos.",
