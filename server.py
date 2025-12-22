@@ -6,7 +6,7 @@ import sys
 import urllib.parse
 from http.cookies import SimpleCookie
 
-# import mysql.connector # Uncomment for MySQL
+import mysql.connector
 
 from wsgiref.simple_server import make_server
 
@@ -14,7 +14,7 @@ from wsgiref.simple_server import make_server
 HOST = 'localhost'
 PORT = 8000
 STATIC_DIR = 'static'
-DB_TYPE = 'sqlite' # Change to 'mysql' for MySQL
+DB_TYPE = 'mysql' # Changed to 'mysql'
 
 # --- Database Logic ---
 
@@ -24,14 +24,12 @@ def get_db_connection():
         conn.row_factory = sqlite3.Row
         return conn
     elif DB_TYPE == 'mysql':
-        # Replace with your MySQL configuration
-        # return mysql.connector.connect(
-        #     host="localhost",
-        #     user="yourusername",
-        #     password="yourpassword",
-        #     database="yourdatabase"
-        # )
-        pass
+        return mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="1234unsa",
+            database="Proyecto"
+        )
     raise Exception("Invalid DB_TYPE")
 
 def init_db():
@@ -58,7 +56,7 @@ def init_db():
         conn.commit()
         conn.close()
     elif DB_TYPE == 'mysql':
-        # MySQL initialization logic would go here
+        # Assuming tables are already created as per user instructions
         pass
 
 def save_user(user_data):
@@ -72,12 +70,20 @@ def save_user(user_data):
             ''', (user_data['full_name'], user_data['email'], user_data['gender'], user_data['rating'], user_data['terms']))
             user_id = c.lastrowid
         elif DB_TYPE == 'mysql':
-            pass
+            query = """
+                INSERT INTO users (full_name, email, gender, rating, terms)
+                VALUES (%s, %s, %s, %s, %s)
+            """
+            c.execute(query, (user_data['full_name'], user_data['email'], user_data['gender'], user_data['rating'], user_data['terms']))
+            user_id = c.lastrowid
         conn.commit()
         return user_id
-    except sqlite3.IntegrityError:
-        return None # User likely already exists
+    except (sqlite3.IntegrityError, mysql.connector.Error) as err:
+        # Check for duplicate entry (common case for IntegrityError in SQLite or specific error code in MySQL)
+        # For simple robustness we can catch general DB errors here or check specifically
+        return None
     finally:
+        c.close()
         conn.close()
 
 def create_session(user_id):
@@ -87,35 +93,58 @@ def create_session(user_id):
     if DB_TYPE == 'sqlite':
         c.execute('INSERT INTO sessions (session_id, user_id) VALUES (?, ?)', (session_id, user_id))
     elif DB_TYPE == 'mysql':
-        pass
+        query = "INSERT INTO sessions (session_id, user_id) VALUES (%s, %s)"
+        c.execute(query, (session_id, user_id))
     conn.commit()
+    c.close()
     conn.close()
     return session_id
 
 def get_session(session_id):
     conn = get_db_connection()
-    c = conn.cursor()
+    # Use dictionary=True for mysql connector to get dict-like access if possible, or convert manually
+    if DB_TYPE == 'mysql':
+        c = conn.cursor(dictionary=True)
+    else:
+        c = conn.cursor()
+
     row = None
     if DB_TYPE == 'sqlite':
         c.execute('SELECT * FROM sessions WHERE session_id = ?', (session_id,))
         row = c.fetchone()
     elif DB_TYPE == 'mysql':
-        pass
+        c.execute('SELECT * FROM sessions WHERE session_id = %s', (session_id,))
+        row = c.fetchone()
+
+    c.close()
     conn.close()
     if row:
-        return dict(row)
+        if DB_TYPE == 'sqlite':
+            return dict(row)
+        return row # mysql connector with dictionary=True returns a dict
     return None
 
 def get_user_by_id(user_id):
     conn = get_db_connection()
-    c = conn.cursor()
+    if DB_TYPE == 'mysql':
+        c = conn.cursor(dictionary=True)
+    else:
+        c = conn.cursor()
+
     row = None
     if DB_TYPE == 'sqlite':
         c.execute('SELECT * FROM users WHERE id = ?', (user_id,))
         row = c.fetchone()
+    elif DB_TYPE == 'mysql':
+        c.execute('SELECT * FROM users WHERE id = %s', (user_id,))
+        row = c.fetchone()
+
+    c.close()
     conn.close()
     if row:
-        return dict(row)
+        if DB_TYPE == 'sqlite':
+            return dict(row)
+        return row
     return None
 
 # --- Server Logic ---
@@ -139,6 +168,10 @@ def handle_register(environ, start_response):
     email = post_data.get('correo', [''])[0]
     gender = post_data.get('Género', [''])[0]
     rating = post_data.get('reseña', ['0'])[0]
+    try:
+        rating_val = int(rating)
+    except ValueError:
+        rating_val = 0
     terms = 1 if 'terminos' in post_data else 0
 
     if not full_name or not email:
@@ -149,7 +182,7 @@ def handle_register(environ, start_response):
         'full_name': full_name,
         'email': email,
         'gender': gender,
-        'rating': int(rating),
+        'rating': rating_val,
         'terms': terms
     }
 
@@ -190,9 +223,12 @@ def serve_static(environ, start_response):
         cookie = SimpleCookie(cookie_header)
         if 'session_id' in cookie:
             session_id = cookie['session_id'].value
-            session = get_session(session_id)
-            if session:
-                is_logged_in = True
+            try:
+                session = get_session(session_id)
+                if session:
+                    is_logged_in = True
+            except:
+                pass # Fail safe if DB error
 
     # Resolve file path
     filepath = os.path.join(STATIC_DIR, path.lstrip('/'))
@@ -237,7 +273,7 @@ def application(environ, start_response):
     return serve_static(environ, start_response)
 
 if __name__ == '__main__':
-    # Initialize DB
+    # Initialize DB (Optional for MySQL if pre-created)
     init_db()
 
     with make_server(HOST, PORT, application) as httpd:
