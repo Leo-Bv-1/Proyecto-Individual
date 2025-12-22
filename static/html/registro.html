@@ -6,6 +6,7 @@
     <title>Suscripción - Valorant Fan Page</title>
     <link rel="stylesheet" href="../CSS/general.css">
     <link rel="stylesheet" href="../CSS/registro.css">
+    <script src="../js/auth.js" defer></script>
 </head>
 <body>
     <header class="registro-header">
@@ -13,7 +14,7 @@
         <a href="index.html" class="boton-regresar">Regresar al Inicio</a>
     </header>
     <main class="registro-container">
-        <form action="#" method="post" class="registro-form">
+        <form action="#" method="post" class="registro-form" id="register-form">
             <fieldset>
                 <legend>Información de Suscriptor</legend>
 
@@ -25,6 +26,11 @@
                 <div class="form-group">
                     <label for="correo">Correo Electrónico:</label>
                     <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Contraseña:</label>
+                    <input type="password" id="password" name="password" placeholder="********" required>
                 </div>
 
                 <div class="form-group radio-group">

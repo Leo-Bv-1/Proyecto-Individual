@@ -6,6 +6,7 @@
     <title>Valorant</title>
     <link rel="stylesheet" href="../CSS/general.css">
     <link rel="stylesheet" href="../CSS/styles.css">
+    <script src="../js/auth.js" defer></script>
 </head>
 <body>
     <header>
@@ -18,6 +19,9 @@
                 <a href="agentes.html">Agentes</a>
                 <a href="nosotros.html">Nosotros</a>
                 <a href="contacto.html">Contacto</a>
+                <!-- Auth Links -->
+                <a href="login.html" class="auth-hide">Iniciar Sesión</a>
+                <a href="#" class="auth-show" id="logout-btn" style="display:none;">Cerrar Sesión</a>
             </div>
         </nav>
     </header>
@@ -29,7 +33,7 @@
                 juego es en primera persona y e basa en mecánicas de juego táctico y coordinación de equipos, y se inspira en títulos como 
                 Counter-Strike, con un enfoque en la economía de la partida y el uso estratégico de habilidades para lograr la victoria</p>
             <br>
-            <a href="registro.html" class="boton">Registrarse</a>
+            <a href="registro.html" class="boton auth-hide" id="register-btn">Registrarse</a>
                 <a href="https://playvalorant.com/es-mx">
                     <img src="https://golfizta.com/wp-content/uploads/2024/01/valorant-2_mdt7-1024x576.jpeg" class="imagenes" alt="Valorant" width="600">
                 </a>
