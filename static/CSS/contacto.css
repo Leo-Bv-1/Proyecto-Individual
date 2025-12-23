@@ -1,6 +1,6 @@
-/* Contact Page Styles */
+/* Estilos de la página de contacto */
 
-/* Global variables are in general.css */
+/* Las variables globales se encuentran en general.css */
 
 .contact-container {
     width: 90%;
@@ -18,7 +18,7 @@
     border-bottom: 4px solid var(--val-red);
     display: inline-block;
     padding-bottom: 10px;
-    /* Center the underline */
+    /*Centrar el subrayado*/
     position: relative;
     left: 50%;
     transform: translateX(-50%);
@@ -31,7 +31,7 @@
     justify-content: space-between;
 }
 
-/* Contact Info Section */
+/* Sección de información de contacto */
 .contact-info {
     flex: 1;
     min-width: 300px;
@@ -109,11 +109,11 @@
     background-color: #d93644;
 }
 
-/* Contact Form Section */
+/* Sección del formulario de contacto */
 .contact-form-wrapper {
     flex: 1.5;
     min-width: 300px;
-    background-color: #ece8e1; /* Light background for form for contrast */
+    background-color: #ece8e1; /* Fondo claro para el formulario para contraste */
     color: #333;
     padding: 40px;
     border-radius: 8px;

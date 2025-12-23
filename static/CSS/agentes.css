@@ -1,7 +1,5 @@
-/* Global variables are now in general.css */
-/* :root definitions removed to avoid duplication */
-
-/* Body styling inherited from general.css, specific overrides here if needed */
+/* Las variables globales ahora están en general.css */
+/* El estilo del cuerpo se hereda de general.css; se pueden anular aquí si es necesario */
 
 .agentes-container {
     width: 90%;
@@ -37,7 +35,7 @@
     color: var(--val-grey);
 }
 
-/* Grid Layout for Roles */
+/* Diseño de cuadrícula para roles */
 .roles-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -72,7 +70,7 @@
 .role-desc {
     margin-bottom: 20px;
     line-height: 1.5;
-    flex-grow: 1; /* Pushes the list down */
+    flex-grow: 1; /* Empuja la lista hacia abajo */
 }
 
 .role-card h3 {
@@ -121,7 +119,7 @@
     border: 2px solid var(--val-red);
 }
 
-/* Specific styling overrides for role types if needed */
+/* Anulaciones de estilo específicas para tipos de roles si es necesario */
 .duelist h2 { color: #f2d65d; }
 .controller h2 { color: #b7b0ff; }
 .sentinel h2 { color: #52e3c2; }
@@ -136,9 +134,9 @@
     }
 }
 
-/* Modal Styles */
+/* Estilos modales */
 .modal {
-    display: none; /* Hidden by default */
+    display: none; /* Oculto por defecto */
     position: fixed;
     z-index: 2000;
     left: 0;

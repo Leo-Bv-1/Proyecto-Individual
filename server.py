@@ -10,13 +10,13 @@ import mysql.connector
 
 from wsgiref.simple_server import make_server
 
-# Configuration
+# Configuracion
 HOST = 'localhost'
 PORT = 8000
 STATIC_DIR = 'static'
-DB_TYPE = 'mysql' # Changed to 'mysql'
+DB_TYPE = 'mysql'
 
-# --- Database Logic ---
+# --- Lógica de la base de datos ---
 
 def get_db_connection():
     if DB_TYPE == 'sqlite':
@@ -56,7 +56,7 @@ def init_db():
         conn.commit()
         conn.close()
     elif DB_TYPE == 'mysql':
-        # Assuming tables are already created as per user instructions
+        # Asumimos las tablas creadas en MySQL
         pass
 
 def save_user(user_data):
@@ -79,8 +79,8 @@ def save_user(user_data):
         conn.commit()
         return user_id
     except (sqlite3.IntegrityError, mysql.connector.Error) as err:
-        # Check for duplicate entry (common case for IntegrityError in SQLite or specific error code in MySQL)
-        # For simple robustness we can catch general DB errors here or check specifically
+        # Verificar entradas duplicadas (caso común de IntegrityError en SQLite o código de error específico en MySQL)
+        # Para mayor robustez, podemos detectar errores generales de la base de datos aquí o verificar errores específicos.
         return None
     finally:
         c.close()
@@ -102,7 +102,7 @@ def create_session(user_id):
 
 def get_session(session_id):
     conn = get_db_connection()
-    # Use dictionary=True for mysql connector to get dict-like access if possible, or convert manually
+    # Use dictionary=True para el conector MySQL para obtener acceso similar a un diccionario si es posible, o conviértalo manualmente
     if DB_TYPE == 'mysql':
         c = conn.cursor(dictionary=True)
     else:
@@ -121,7 +121,7 @@ def get_session(session_id):
     if row:
         if DB_TYPE == 'sqlite':
             return dict(row)
-        return row # mysql connector with dictionary=True returns a dict
+        return row # El conector mysql con dictionary=True devuelve un dict
     return None
 
 def get_user_by_id(user_id):
@@ -147,7 +147,7 @@ def get_user_by_id(user_id):
         return row
     return None
 
-# --- Server Logic ---
+# --- Lógica del servidor ---
 
 def get_content_type(filepath):
     return mimetypes.guess_type(filepath)[0] or 'application/octet-stream'
@@ -163,7 +163,7 @@ def parse_post_data(environ):
 def handle_register(environ, start_response):
     post_data = parse_post_data(environ)
 
-    # Extract fields
+    # Extraer campos
     full_name = post_data.get('Nombre Completo', [''])[0]
     email = post_data.get('correo', [''])[0]
     gender = post_data.get('Género', [''])[0]
@@ -195,18 +195,18 @@ def handle_register(environ, start_response):
         cookie['session_id']['path'] = '/'
         cookie['session_id']['httponly'] = True
 
-        # Construct header list
+        # Construir lista de encabezados
         headers = [
             ('Location', '/index.html'),
             ('Content-type', 'text/plain')
         ]
-        # Add cookie header
+        # Agregar encabezado de cookie
         headers.append(('Set-Cookie', cookie.output(header='').strip()))
 
         start_response('303 See Other', headers)
         return [b'Registered successfully']
     else:
-        # User might already exist
+        # Es posible que el usuario ya exista
         start_response('409 Conflict', [('Content-type', 'text/plain')])
         return [b'User already registered']
 
@@ -216,7 +216,7 @@ def serve_static(environ, start_response):
     if path == '/':
         path = '/index.html'
 
-    # Check for session
+    # Consultar sesión
     cookie_header = environ.get('HTTP_COOKIE')
     is_logged_in = False
     if cookie_header:
@@ -228,9 +228,9 @@ def serve_static(environ, start_response):
                 if session:
                     is_logged_in = True
             except:
-                pass # Fail safe if DB error
+                pass # A prueba de fallos si hay un error en la base de datos
 
-    # Resolve file path
+    # Resolver la ruta del archivo
     filepath = os.path.join(STATIC_DIR, path.lstrip('/'))
 
     if not os.path.exists(filepath) and path.endswith('.html'):
@@ -238,7 +238,7 @@ def serve_static(environ, start_response):
         if os.path.exists(html_path):
             filepath = html_path
 
-    # Security check
+    # Control de seguridad
     abs_static = os.path.abspath(STATIC_DIR)
     abs_filepath = os.path.abspath(filepath)
     if not abs_filepath.startswith(abs_static):
@@ -252,7 +252,7 @@ def serve_static(environ, start_response):
         if path == '/index.html' and is_logged_in and content_type == 'text/html':
              with open(filepath, 'r', encoding='utf-8') as f:
                  content = f.read()
-                 # Remove or replace the registration button
+                 # Eliminar o reemplazar el botón de registro
                  # <a href="registro.html" class="boton">Registrarse</a>
                  content = content.replace('<a href="registro.html" class="boton">Registrarse</a>', '<!-- Registered -->')
                  return [content.encode('utf-8')]
@@ -273,11 +273,11 @@ def application(environ, start_response):
     return serve_static(environ, start_response)
 
 if __name__ == '__main__':
-    # Initialize DB (Optional for MySQL if pre-created)
+    # Inicializar base de datos (opcional para MySQL si se creó previamente)
     init_db()
 
     with make_server(HOST, PORT, application) as httpd:
-        print(f"Serving on port {PORT}...")
+        print(f"Servidor en puerto {PORT}.")
         try:
             httpd.serve_forever()
         except KeyboardInterrupt:

@@ -276,19 +276,19 @@ const agentsData = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Add click listeners to all agent list items
+    // Agregar oyentes de clics a todos los elementos de la lista de agentes
     const agentListItems = document.querySelectorAll('.agent-list li');
     const modal = document.getElementById('agent-modal');
     const closeModal = document.querySelector('.close-modal');
 
-    // Modal elements to update
+    // Elementos modales para actualizar
     const modalTitle = document.getElementById('modal-agent-name');
     const modalRole = document.getElementById('modal-agent-role');
     const modalDesc = document.getElementById('modal-agent-desc');
     const abilitiesList = document.getElementById('modal-abilities-list');
 
     agentListItems.forEach(item => {
-        // Make items look clickable
+        // Hacer que los elementos parezcan cliqueables
         item.style.cursor = 'pointer';
         item.classList.add('agent-trigger');
 
@@ -297,31 +297,31 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = agentsData[agentName];
 
             if (data) {
-                // Populate modal
+                // Rellenar modal
                 modalTitle.textContent = agentName;
                 modalRole.textContent = data.role;
                 modalDesc.textContent = data.description;
 
-                // Clear previous abilities
+                // Borrar habilidades anteriores
                 abilitiesList.innerHTML = '';
 
-                // Add abilities
+                // Agregar habilidades
                 data.abilities.forEach(ability => {
                     const li = document.createElement('li');
                     li.innerHTML = `<strong>${ability.name}:</strong> ${ability.desc}`;
                     abilitiesList.appendChild(li);
                 });
 
-                // Show modal
+                // mostrar modal
                 modal.style.display = 'flex';
-                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                document.body.style.overflow = 'hidden'; // Evitar el desplazamiento en segundo plano
             } else {
                 console.log('No data found for agent:', agentName);
             }
         });
     });
 
-    // Close modal logic
+    // Cerrar lógica modal
     if (closeModal) {
         closeModal.addEventListener('click', () => {
             modal.style.display = 'none';
@@ -329,7 +329,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Close on click outside
+    // Cerrar al hacer clic en el exterior
     window.addEventListener('click', (event) => {
         if (event.target === modal) {
             modal.style.display = 'none';

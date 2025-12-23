@@ -117,7 +117,7 @@ input[type="number"]:focus {
 }
 
 .rating-input {
-    width: 80px !important; /* Anula width: 100% */
+    width: 80px !important; /* Ancho del anillo: 100% */
     display: inline-block;
     margin-left: 10px;
 }
