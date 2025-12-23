@@ -4,6 +4,7 @@ import sqlite3
 import uuid
 import sys
 import urllib.parse
+import hashlib
 from http.cookies import SimpleCookie
 
 import mysql.connector
@@ -14,7 +15,7 @@ from wsgiref.simple_server import make_server
 HOST = 'localhost'
 PORT = 8000
 STATIC_DIR = 'static'
-DB_TYPE = 'mysql'
+DB_TYPE = 'sqlite'
 
 # --- Lógica de la base de datos ---
 
@@ -41,6 +42,7 @@ def init_db():
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 full_name TEXT NOT NULL,
                 email TEXT UNIQUE NOT NULL,
+                password TEXT NOT NULL,
                 gender TEXT,
                 rating INTEGER,
                 terms INTEGER
@@ -65,16 +67,16 @@ def save_user(user_data):
     try:
         if DB_TYPE == 'sqlite':
             c.execute('''
-                INSERT INTO users (full_name, email, gender, rating, terms)
-                VALUES (?, ?, ?, ?, ?)
-            ''', (user_data['full_name'], user_data['email'], user_data['gender'], user_data['rating'], user_data['terms']))
+                INSERT INTO users (full_name, email, password, gender, rating, terms)
+                VALUES (?, ?, ?, ?, ?, ?)
+            ''', (user_data['full_name'], user_data['email'], user_data['password'], user_data['gender'], user_data['rating'], user_data['terms']))
             user_id = c.lastrowid
         elif DB_TYPE == 'mysql':
             query = """
-                INSERT INTO users (full_name, email, gender, rating, terms)
-                VALUES (%s, %s, %s, %s, %s)
+                INSERT INTO users (full_name, email, password, gender, rating, terms)
+                VALUES (%s, %s, %s, %s, %s, %s)
             """
-            c.execute(query, (user_data['full_name'], user_data['email'], user_data['gender'], user_data['rating'], user_data['terms']))
+            c.execute(query, (user_data['full_name'], user_data['email'], user_data['password'], user_data['gender'], user_data['rating'], user_data['terms']))
             user_id = c.lastrowid
         conn.commit()
         return user_id
@@ -147,6 +149,40 @@ def get_user_by_id(user_id):
         return row
     return None
 
+def get_user_by_email(email):
+    conn = get_db_connection()
+    if DB_TYPE == 'mysql':
+        c = conn.cursor(dictionary=True)
+    else:
+        c = conn.cursor()
+
+    row = None
+    if DB_TYPE == 'sqlite':
+        c.execute('SELECT * FROM users WHERE email = ?', (email,))
+        row = c.fetchone()
+    elif DB_TYPE == 'mysql':
+        c.execute('SELECT * FROM users WHERE email = %s', (email,))
+        row = c.fetchone()
+
+    c.close()
+    conn.close()
+    if row:
+        if DB_TYPE == 'sqlite':
+            return dict(row)
+        return row
+    return None
+
+def delete_session(session_id):
+    conn = get_db_connection()
+    c = conn.cursor()
+    if DB_TYPE == 'sqlite':
+        c.execute('DELETE FROM sessions WHERE session_id = ?', (session_id,))
+    elif DB_TYPE == 'mysql':
+        c.execute('DELETE FROM sessions WHERE session_id = %s', (session_id,))
+    conn.commit()
+    c.close()
+    conn.close()
+
 # --- Lógica del servidor ---
 
 def get_content_type(filepath):
@@ -166,6 +202,7 @@ def handle_register(environ, start_response):
     # Extraer campos
     full_name = post_data.get('Nombre Completo', [''])[0]
     email = post_data.get('correo', [''])[0]
+    password = post_data.get('password', [''])[0]
     gender = post_data.get('Género', [''])[0]
     rating = post_data.get('reseña', ['0'])[0]
     try:
@@ -174,13 +211,16 @@ def handle_register(environ, start_response):
         rating_val = 0
     terms = 1 if 'terminos' in post_data else 0
 
-    if not full_name or not email:
+    if not full_name or not email or not password:
         start_response('400 Bad Request', [('Content-type', 'text/plain')])
         return [b'Missing required fields']
+
+    hashed_password = hashlib.sha256(password.encode()).hexdigest()
 
     user_data = {
         'full_name': full_name,
         'email': email,
+        'password': hashed_password,
         'gender': gender,
         'rating': rating_val,
         'terms': terms
@@ -209,6 +249,58 @@ def handle_register(environ, start_response):
         # Es posible que el usuario ya exista
         start_response('409 Conflict', [('Content-type', 'text/plain')])
         return [b'User already registered']
+
+def handle_login(environ, start_response):
+    post_data = parse_post_data(environ)
+    email = post_data.get('correo', [''])[0]
+    password = post_data.get('password', [''])[0]
+
+    if not email or not password:
+        start_response('400 Bad Request', [('Content-type', 'text/plain')])
+        return [b'Missing credentials']
+
+    user = get_user_by_email(email)
+    if user:
+        hashed_password = hashlib.sha256(password.encode()).hexdigest()
+        if user['password'] == hashed_password:
+            session_id = create_session(user['id'])
+            cookie = SimpleCookie()
+            cookie['session_id'] = session_id
+            cookie['session_id']['path'] = '/'
+            cookie['session_id']['httponly'] = True
+
+            headers = [
+                ('Location', '/index.html'),
+                ('Content-type', 'text/plain')
+            ]
+            headers.append(('Set-Cookie', cookie.output(header='').strip()))
+
+            start_response('303 See Other', headers)
+            return [b'Logged in successfully']
+
+    start_response('401 Unauthorized', [('Content-type', 'text/plain')])
+    return [b'Invalid credentials']
+
+def handle_logout(environ, start_response):
+    cookie_header = environ.get('HTTP_COOKIE')
+    if cookie_header:
+        cookie = SimpleCookie(cookie_header)
+        if 'session_id' in cookie:
+            session_id = cookie['session_id'].value
+            delete_session(session_id)
+
+    cookie = SimpleCookie()
+    cookie['session_id'] = ''
+    cookie['session_id']['path'] = '/'
+    cookie['session_id']['expires'] = 'Thu, 01 Jan 1970 00:00:00 GMT'
+
+    headers = [
+        ('Location', '/index.html'),
+        ('Content-type', 'text/plain'),
+        ('Set-Cookie', cookie.output(header='').strip())
+    ]
+    start_response('303 See Other', headers)
+    return [b'Logged out']
 
 def serve_static(environ, start_response):
     path = environ.get('PATH_INFO', '/')
@@ -249,12 +341,27 @@ def serve_static(environ, start_response):
         content_type = get_content_type(filepath)
         start_response('200 OK', [('Content-type', content_type)])
 
-        if path == '/index.html' and is_logged_in and content_type == 'text/html':
+        if content_type == 'text/html':
              with open(filepath, 'r', encoding='utf-8') as f:
                  content = f.read()
-                 # Eliminar o reemplazar el botón de registro
-                 # <a href="registro.html" class="boton">Registrarse</a>
-                 content = content.replace('<a href="registro.html" class="boton">Registrarse</a>', '<!-- Registered -->')
+
+                 # Logic for Navigation Bar
+                 nav_injection = ''
+                 if is_logged_in:
+                     nav_injection = '<a href="/logout">Cerrar Sesión</a>'
+                 else:
+                     nav_injection = '<a href="login.html">Iniciar Sesión</a>\n                <a href="registro.html">Registrarse</a>'
+
+                 # Append to nav-links
+                 # Assuming all HTML files use <div class="nav-links"> ... </div>
+                 # We will inject before the closing div
+                 if '<div class="nav-links">' in content:
+                     content = content.replace('</div>\n        </nav>', f'{nav_injection}\n            </div>\n        </nav>')
+
+                 # Special handling for index.html body button
+                 if path == '/index.html' and is_logged_in:
+                     content = content.replace('<a href="registro.html" class="boton">Registrarse</a>', '<!-- Registered -->')
+
                  return [content.encode('utf-8')]
 
         with open(filepath, 'rb') as f:
@@ -269,6 +376,10 @@ def application(environ, start_response):
 
     if path == '/register' and method == 'POST':
         return handle_register(environ, start_response)
+    elif path == '/login' and method == 'POST':
+        return handle_login(environ, start_response)
+    elif path == '/logout':
+        return handle_logout(environ, start_response)
 
     return serve_static(environ, start_response)
 
