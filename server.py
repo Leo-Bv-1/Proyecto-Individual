@@ -13,8 +13,9 @@ from wsgiref.simple_server import make_server
 # Configuracion
 HOST = 'localhost'
 PORT = 8000
-STATIC_DIR = 'static'
-DB_TYPE = 'mysql'
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+DB_TYPE = 'sqlite' #Cambiar a mysql si quieres cambiar de sqlite a MySQL
 
 # --- Lógica de la base de datos ---
 

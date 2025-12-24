@@ -1,5 +1,8 @@
 # Proyecto Web Valorant
 
+## Hospedado en phytonanywhere
+Link: https://leoismael.pythonanywhere.com/
+
 ## Descripción
 Este proyecto es una aplicación web informativa basada en el videojuego **Valorant**, desarrollada utilizando **Python** con un servidor **WSGI**. La aplicación permite a los usuarios registrarse en la plataforma, visualizar información de los agentes del juego y enviar mensajes mediante un formulario de contacto. Los datos de los usuarios se almacenan en bases de datos **MySQL** y **SQLite**, permitiendo la persistencia de la información.
 
