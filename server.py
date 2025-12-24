@@ -15,13 +15,14 @@ HOST = 'localhost'
 PORT = 8000
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
+DB_PATH = os.path.join(BASE_DIR, 'database.db')
 DB_TYPE = 'sqlite' #Cambiar a mysql si quieres cambiar de sqlite a MySQL
 
 # --- Lógica de la base de datos ---
 
 def get_db_connection():
     if DB_TYPE == 'sqlite':
-        conn = sqlite3.connect('database.db')
+        conn = sqlite3.connect(DB_PATH)
         conn.row_factory = sqlite3.Row
         return conn
     elif DB_TYPE == 'mysql':
