@@ -29,7 +29,7 @@ def get_db_connection():
         return mysql.connector.connect(
             host="localhost",
             user="root",
-            password="1234unsa",
+            password="1234unsa",  #Aqui pon tu contraseña si lo clonas
             database="Proyecto"
         )
     raise Exception("Invalid DB_TYPE")

@@ -36,7 +36,7 @@ Para SQLite: la base de datos se crea automáticamente al ejecutar el servidor.
 
 Para MySQL:
 
-- Crear una base de datos usa este codigo:
+- Crear una base de datos, usa este codigo:
 ```
 CREATE DATABASE IF NOT EXISTS Proyecto;
 USE Proyecto;
@@ -55,6 +55,8 @@ CREATE TABLE sessions (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 ```
+Recuerda: Para usar el MySQL n el server.py cambiar a tu password y cambia el BD_TYPE.
+
 ### 3️⃣ Ejecutar el servidor 
 Ejecuta el archivo server.py en tu computadora.
 
